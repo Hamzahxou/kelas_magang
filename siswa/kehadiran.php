@@ -48,7 +48,6 @@ include_once('../config/redirect.php');
                                         ";
 
                                         $result = $conn->query($sql);
-                                        echo "<h2>Jadwal Kelas Anda</h2>";
                                         foreach ($result as $index => $value) {
                                         ?>
                                             <tr>

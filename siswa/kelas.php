@@ -67,6 +67,14 @@ include_once('../config/redirect.php');
                                         }
 
                                         $result = $conn->query($sql);
+
+                                        $cari_guru = "SELECT id,username FROM users WHERE role = 'guru'";
+                                        $result_guru = $conn->query($cari_guru);
+                                        $data_guru = [];
+                                        foreach ($result_guru as $guru) {
+                                            $data_guru[] = $guru;
+                                        }
+
                                         foreach ($result as $index => $value) {
                                         ?>
                                             <tr>
@@ -106,8 +114,16 @@ include_once('../config/redirect.php');
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p><?= $value['pesan'] ?></p>
-                                                                    <p><?= $value['deskripsi'] ?></p>
+                                                                    <small>Guru / Pembimbing : <?php
+                                                                                                foreach ($data_guru as $guru) {
+                                                                                                    if ($value['guru_id'] == $guru['id']) {
+                                                                                                        echo $guru['username'];
+                                                                                                    }
+                                                                                                }
+                                                                                                ?></small>
+                                                                    <hr>
+                                                                    <p><b>Pesan</b>: <?= $value['pesan'] ?></p>
+                                                                    <p><b>Deskripsi</b>: <?= $value['deskripsi'] ?></p>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-light-secondary"
