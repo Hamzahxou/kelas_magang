@@ -200,6 +200,7 @@ include_once('../config/redirect.php');
                                                     'pesan' => $baris['pesan'],
                                                     'kelas_id' => $baris['kelas_id'],
                                                     'username' => $baris['username'],
+                                                    'token' => $baris['token'],
                                                     'nama_kelas' => $baris['nama_kelas'],
                                                     'deskripsi' => $baris['deskripsi'],
                                                     'tanggal_mulai' => $baris['tanggal_mulai'],
@@ -283,7 +284,8 @@ include_once('../config/redirect.php');
                                                                         <?php } ?>
                                                                     </ul>
                                                                 </div>
-                                                                <div class="modal-footer">
+                                                                <div class="modal-footer d-flex justify-content-between align-items-center">
+                                                                    <b>Token : <?= $value['token'] ?></b>
                                                                     <button type="button" class="btn btn-light-secondary"
                                                                         data-bs-dismiss="modal">
                                                                         <i class="bi bi-x d-block d-sm-none"></i>

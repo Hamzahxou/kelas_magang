@@ -22,8 +22,9 @@ include_once('../config/redirect.php');
                 <h3>info kelas</h3>
             </div>
             <div class="page-content">
+                <?php include_once('../layout/flash_alert.php') ?>
                 <section class="row">
-                    <div class="col-12">
+                    <div class="col-9">
                         <div class="card">
                             <div class="card-body">
                                 <h6>Jadwal Kelas Anda</h6>
@@ -167,6 +168,18 @@ include_once('../config/redirect.php');
 
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body" style="height: 200px;">
+                                <p>Masuk kelas</p>
+                                <form action="<?= $url . "/config/siswa/masuk-kelas.php" ?>" method="post" class="d-flex gap-2">
+                                    <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+                                    <input type="text" class="form-control" name="token" placeholder="Token">
+                                    <button type="submit" name="masuk_kelas" class="btn btn-primary">Masuk</button>
+                                </form>
                             </div>
                         </div>
                     </div>

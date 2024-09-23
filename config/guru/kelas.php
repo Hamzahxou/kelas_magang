@@ -68,7 +68,8 @@ if (isset($_POST['tambah_kelas'])) {
     $waktu_selesai = $_POST['waktu_selesai'];
     $pesan = $_POST['pesan'];
     $deskripsi = $_POST['deskripsi'];
-    $sql_kelas = "INSERT INTO kelas (guru_id, nama_kelas, tanggal_mulai, tanggal_berakhir, deskripsi) VALUES ('$guru_id', '$nama_kelas', '$tanggal_mulai', '$tanggal_berakhir', '$deskripsi')";
+    $token = token(5);
+    $sql_kelas = "INSERT INTO kelas (guru_id, nama_kelas, tanggal_mulai, tanggal_berakhir, deskripsi, token) VALUES ('$guru_id', '$nama_kelas', '$tanggal_mulai', '$tanggal_berakhir', '$deskripsi', '$token')";
     $hasil = mysqli_query($conn, $sql_kelas);
     $kelas_id = mysqli_insert_id($conn);
     $sql_jadwal = "INSERT INTO jadwal (waktu_mulai, waktu_selesai, pesan, kelas_id) VALUES ('$waktu_mulai', '$waktu_selesai', '$pesan', '$kelas_id')";

@@ -38,7 +38,7 @@ include_once('../config/redirect.php');
                                                     <?= date('d'); ?>
                                                 </h2>
                                                 <h6 class="font-extrabold mb-0">
-                                                    <?= date('l'); ?>
+                                                    <?= hari(date('l')); ?>
                                                 </h6>
                                             </div>
                                         </div>
