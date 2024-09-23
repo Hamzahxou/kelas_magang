@@ -140,7 +140,17 @@ include_once('../config/redirect.php');
                                         ?>
                                             <tr>
                                                 <td><?= $key + 1 ?></td>
-                                                <td><?= $value['username'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($value['role'] != 'admin') {
+                                                    ?>
+                                                        <a href="<?= $url . "/admin/profile.php?user=" . $value['id'] . "&role=" . $value['role'] ?>"><?= $value['username'] ?></a>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <?= $value['username'] ?>
+                                                    <?php } ?>
+                                                </td>
                                                 <td><?= $value['role'] ?></td>
                                                 <td>
                                                     <div class="d-flex gap-2 align-items-center">

@@ -81,13 +81,6 @@
                             <span>Kelas</span>
                         </a>
                     </li>
-                    <li
-                        class="sidebar-item <?= $parse_url[3] == 'kehadiran.php'  ? 'active' : '' ?>">
-                        <a href="<?= $url ?>/siswa/kehadiran.php" class='sidebar-link'>
-                            <i class="bi bi-list-check"></i>
-                            <span>kehadiran</span>
-                        </a>
-                    </li>
                 <?php }  ?>
             </ul>
         </div>

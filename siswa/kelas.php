@@ -75,6 +75,16 @@ include_once('../config/redirect.php');
                                             $data_guru[] = $guru;
                                         }
 
+                                        $data_teman = "SELECT kelas_id,username,user_id FROM kelas 
+                                        JOIN peserta ON kelas.id = peserta.kelas_id
+                                        JOIN users ON peserta.user_id = users.id
+                                        WHERE user_id != '$user_id'
+                                         ";
+                                        $result_teman = $conn->query($data_teman);
+                                        $data_teman = [];
+                                        foreach ($result_teman as $teman) {
+                                            $data_teman[] = $teman;
+                                        }
                                         foreach ($result as $index => $value) {
                                         ?>
                                             <tr>
@@ -124,6 +134,22 @@ include_once('../config/redirect.php');
                                                                     <hr>
                                                                     <p><b>Pesan</b>: <?= $value['pesan'] ?></p>
                                                                     <p><b>Deskripsi</b>: <?= $value['deskripsi'] ?></p>
+                                                                    <hr>
+                                                                    <b>teman: </b>
+                                                                    <ul>
+                                                                        <?php
+                                                                        if (count($data_teman) > 0) {
+                                                                            foreach ($data_teman as  $teman) {
+                                                                                if ($value['kelas_id'] == $teman['kelas_id']) {
+                                                                        ?>
+                                                                                    <a href="<?= $url . "/siswa/detail-teman.php?user=" . $teman['user_id'] . "&role=siswa" ?>"><?= $teman['username'] ?></a>
+                                                                        <?php
+                                                                                }
+                                                                            }
+                                                                        } else {
+                                                                            echo "<li>Tidak ada teman</li>";
+                                                                        }
+                                                                        ?>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-light-secondary"

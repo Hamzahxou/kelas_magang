@@ -53,7 +53,6 @@ include_once('../config/redirect.php');
                                                 </button>
                                             </div>
                                             <form action='<?= $url . "/config/admin/kelas.php" ?>' method="post">
-                                                <input type="hidden" name="guru_id" value="<?= $user['id'] ?>">
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="col-12">
@@ -267,7 +266,9 @@ include_once('../config/redirect.php');
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <small>Guru / Pembimbing : <?= $value['username'] ?></small>
+                                                                    <small>Guru / Pembimbing :
+                                                                        <a href="<?= $url . "/admin/profile.php?user=" . $value['guru_id'] . "&role=guru" ?>"><?= $value['username'] ?></a>
+                                                                    </small>
                                                                     <hr>
                                                                     <p><b>Pesan</b>: <?= $value['pesan'] ?></p>
                                                                     <p><b>Deskripsi</b>: <?= $value['deskripsi'] ?></p>
@@ -276,9 +277,9 @@ include_once('../config/redirect.php');
                                                                     <ul>
                                                                         <?php
                                                                         foreach ($value['peserta'] as $index_peserta => $peserta) {
-                                                                            echo "<li>" . $peserta['username'] . "</li>";
-                                                                        }
                                                                         ?>
+                                                                            <a href="<?= $url . "/admin/profile.php?user=" . $peserta['user_id'] . "&role=siswa" ?>"><?= $peserta['username'] ?></a>
+                                                                        <?php } ?>
                                                                     </ul>
                                                                 </div>
                                                                 <div class="modal-footer">

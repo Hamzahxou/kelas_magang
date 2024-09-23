@@ -91,42 +91,6 @@ include_once('../config/redirect.php');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <?php
-                                // $tanggal_sekarang = date('Y-m-d');
-                                // $sql_kehadiran = "SELECT * FROM kehadiran_peserta WHERE peserta_id = '$peserta_magang[id]' AND tanggal_kehadiran = '$tanggal_sekarang'";
-                                // $result_kehadiran = $conn->query($sql_kehadiran);
-                                // $row_kehadiran = $result_kehadiran->fetch_assoc();
-                                ?>
-                                <div class="card border-primary" style="border-left: 5px solid;border-bottom: 5px solid;">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start align-items-center">
-                                                <button class="btn btn-light-primary p-2 px-3 fs-3 rounded" data-bs-toggle="modal"
-                                                    data-bs-target="#absen">
-                                                    <?php
-                                                    // echo $row_kehadiran != NULL ? 'disabled' : ''
-                                                    ?>
-                                                    <i class="bi bi-journal"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">absen</h6>
-                                                <h6 class="font-extrabold mb-0" id="waktu_berjalan">
-                                                    <?php
-                                                    // if ($row_kehadiran != NULL) {
-                                                    //     echo "sudah absen";
-                                                    // } else {
-                                                    //     echo "belum absen";
-                                                    // }
-                                                    echo "absen"
-                                                    ?>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </section>
@@ -135,74 +99,6 @@ include_once('../config/redirect.php');
         </div>
     </div>
 
-    <!-- start absen-->
-    <div class="modal fade" id="absen" tabindex="-1" role="dialog"
-        aria-labelledby="absenTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="absenTitle">Mulai Absen</h5>
-                    <button type="button" class="btn" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <i class="bi bi-x"></i>
-                    </button>
-                </div>
-
-                <?php
-                $sql = "SELECT jadwal.*, kelas.*,peserta.*,users.id FROM jadwal
-                  INNER JOIN kelas ON jadwal.kelas_id = kelas.id
-                  INNER JOIN peserta ON kelas.id = peserta.kelas_id
-                  INNER JOIN users ON peserta.user_id = users.id
-                  WHERE user_id = '$user_id'
-                  ";
-
-                $result = $conn->query($sql);
-                ?>
-                <form action='<?= $url . "/config/siswa/absen.php" ?>' method="post">
-                    <input type="hidden" name="peserta_id" value="<?= $peserta_magang['id'] ?>">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label for="kelas">Kelas</label>
-                                <select name="kelas" id="kelas" class="form-select">
-                                    <option value="" selected disabled>Pilih Kelas</option>
-                                    <?php
-                                    foreach ($result as $value) {
-                                        if ($value['tanggal_mulai'] <=  date('Y-m-d') && $value['tanggal_berakhir'] >=  date('Y-m-d')) {
-                                    ?>
-                                            <option value="<?= $value['id'] ?>"><?= $value['nama_kelas'] ?></option>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label for="status">Status</label>
-                                <select name="status" id="status" class="form-select">
-                                    <option value="" selected disabled>Status kehadiran</option>
-                                    <option value="hadir">Hadir</option>
-                                    <option value="absen">Tidak Hadir</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" modal-footer">
-                        <button type="button" class="btn btn-light-secondary"
-                            data-bs-dismiss="modal">
-                            <i class="bi bi-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">tutup</span>
-                        </button>
-                        <button type="submit" name="absen" class="btn btn-light-primary">
-                            <i class="bi bi-check d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">kirim</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- end absen-->
 
     <?php include_once("../layout/footer-link.php") ?>
     <script>

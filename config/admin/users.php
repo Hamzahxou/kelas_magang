@@ -7,6 +7,16 @@ if (isset($_POST['tambah_user'])) {
     $password = md5($_POST['password']);
     $sql = "INSERT INTO users (username, role, email, password) VALUES ('$username', '$role', '$email', '$password')";
     mysqli_query($conn, $sql);
+    $user_id = mysqli_insert_id($conn);
+
+    if ($role == 'guru') {
+        $sql_guru = "INSERT INTO detail_guru (user_id) VALUES ('$user_id')";
+        mysqli_query($conn, $sql_guru);
+    } else if ($role == 'siswa') {
+        $sql_siswa = "INSERT INTO detail_peserta (user_id) VALUES ('$user_id')";
+        mysqli_query($conn, $sql_siswa);
+    }
+
     $_SESSION['flash_alert'] = [
         'type' => 'success',
         'pesan' => 'User berhasil ditambahkan'

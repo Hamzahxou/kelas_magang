@@ -252,9 +252,9 @@ include_once('../config/redirect.php');
                                                                     <ul>
                                                                         <?php
                                                                         foreach ($value['peserta'] as $index_peserta => $peserta) {
-                                                                            echo "<li>" . $peserta['username'] . "</li>";
-                                                                        }
                                                                         ?>
+                                                                            <a href="<?= $url . "/guru/detail-peserta.php?user=" . $peserta['user_id'] . "&role=siswa" ?>"><?= $peserta['username'] ?></a>
+                                                                        <?php } ?>
                                                                     </ul>
                                                                 </div>
                                                                 <div class="modal-footer">
