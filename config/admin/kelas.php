@@ -84,15 +84,25 @@ if (isset($_POST['tambah_kelas'])) {
     $deskripsi = $_POST['deskripsi'];
     $token = token(5);
     if (isset($guru_id)) {
-        $sql_kelas = "INSERT INTO kelas (guru_id, nama_kelas, tanggal_mulai, tanggal_berakhir, deskripsi, token) VALUES ('$guru_id', '$nama_kelas', '$tanggal_mulai', '$tanggal_berakhir', '$deskripsi', '$token')";
-        $hasil = mysqli_query($conn, $sql_kelas);
-        $kelas_id = mysqli_insert_id($conn);
-        $sql_jadwal = "INSERT INTO jadwal (waktu_mulai, waktu_selesai, pesan, kelas_id) VALUES ('$waktu_mulai', '$waktu_selesai', '$pesan', '$kelas_id')";
-        mysqli_query($conn, $sql_jadwal);
-        $_SESSION['flash_alert'] = [
-            'type' => 'success',
-            'pesan' => 'kelas berhasil dibuat'
-        ];
+
+        $cek_kelas = "SELECT * FROM kelas WHERE guru_id = '$guru_id' AND nama_kelas = '$nama_kelas'";
+        $cek_kelas = mysqli_query($conn, $cek_kelas);
+        if (mysqli_num_rows($cek_kelas) > 0) {
+            $_SESSION['flash_alert'] = [
+                'type' => 'danger',
+                'pesan' => 'kelas sudah ada'
+            ];
+        } else {
+            $sql_kelas = "INSERT INTO kelas (guru_id, nama_kelas, tanggal_mulai, tanggal_berakhir, deskripsi, token) VALUES ('$guru_id', '$nama_kelas', '$tanggal_mulai', '$tanggal_berakhir', '$deskripsi', '$token')";
+            $hasil = mysqli_query($conn, $sql_kelas);
+            $kelas_id = mysqli_insert_id($conn);
+            $sql_jadwal = "INSERT INTO jadwal (waktu_mulai, waktu_selesai, pesan, kelas_id) VALUES ('$waktu_mulai', '$waktu_selesai', '$pesan', '$kelas_id')";
+            mysqli_query($conn, $sql_jadwal);
+            $_SESSION['flash_alert'] = [
+                'type' => 'success',
+                'pesan' => 'kelas berhasil dibuat'
+            ];
+        }
     }
     header("location: " . $url . "/admin/kelas.php");
 }

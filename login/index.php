@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
 
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-lg-5 col-12 ">
-                <div class="card  alert-light-primary">
+                <div class="card  alert-light-success">
                     <div class="card-body mt-0 pt-0">
                         <div id="auth-left">
                             <h1 class="auth-title text-center">Log in.</h1>
@@ -60,9 +60,13 @@ if (isset($_POST['login'])) {
                                     </div>
                                 </div>
                                 <div class="form-group position-relative has-icon-left mb-4">
-                                    <input type="password" class="form-control form-control-xl" name="password" placeholder="Password">
+                                    <input type="password" class="form-control form-control-xl" id="password" style="padding-right: 50px;" name="password" placeholder="Password">
                                     <div class="form-control-icon">
                                         <i class="bi bi-shield-lock"></i>
+                                    </div>
+                                    <div class="position-absolute top-0 end-0 fs-2 me-2 mt-1" id="show-password"
+                                        onclick="showPassword(this)" style="cursor: pointer">
+                                        <i class="bi bi-unlock-fill"></i>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary btn-block btn-lg shadow-lg mt-2" type="submit" name="login">Log in</button>
@@ -74,6 +78,19 @@ if (isset($_POST['login'])) {
         </div>
 
     </div>
+
+    <script>
+        function showPassword(e) {
+            const password = document.getElementById("password");
+            if (password.type == "password") {
+                password.type = "text";
+                e.innerHTML = `<i class="bi bi-lock-fill"></i>`;
+            } else {
+                password.type = "password";
+                e.innerHTML = `<i class="bi bi-unlock-fill"></i>`;
+            }
+        }
+    </script>
 </body>
 
 </html>

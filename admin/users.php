@@ -156,6 +156,45 @@ include_once('../config/redirect.php');
                                                     <div class="d-flex gap-2 align-items-center">
                                                         <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                                             data-bs-target="#editUser_<?= $value['id']; ?>"><i class="bi bi-pencil-square"></i></button>
+                                                        <button class="btn btn-danger btn-sm text-light" data-bs-toggle="modal"
+                                                            data-bs-target="#hapus_user_<?= $value['id'] ?>"><i class="bi bi-trash2"></i></button>
+
+
+
+                                                        <!-- start hapus kelas -->
+                                                        <div class="modal fade" id="hapus_user_<?= $value['id'] ?>" tabindex="-1" role="dialog"
+                                                            aria-labelledby="hapus_user_<?= $value['id'] ?>Title" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="hapus_user_<?= $value['id'] ?>Title">Hapus Kelas</h5>
+                                                                        <button type="button" class="btn" data-bs-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                            <i class="bi bi-x"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <h6>Yakin ingin menghapus user <b><?= $value['username'] ?></b> dengan role <b><?= $value['role'] ?></b>?</h6>
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light-secondary"
+                                                                            data-bs-dismiss="modal">
+                                                                            <i class="bi bi-x d-block d-sm-none"></i>
+                                                                            <span class="d-none d-sm-block">tutup</span>
+                                                                        </button>
+                                                                        <form action='<?= $url . "/config/admin/users.php" ?>' method="post">
+                                                                            <input type="hidden" name="user_id" value="<?= $value['id'] ?>">
+                                                                            <button type="submit" name="hapus_user" class="btn btn-light-danger">
+                                                                                <i class="bi bi-check d-block d-sm-none"></i>
+                                                                                <span class="d-none d-sm-block">lanjut</span>
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- end hapus kelas -->
 
                                                         <!-- start edit user -->
                                                         <div class="modal fade" id="editUser_<?= $value['id']; ?>" tabindex="-1" role="dialog"
@@ -217,11 +256,6 @@ include_once('../config/redirect.php');
                                                             </div>
                                                         </div>
                                                         <!-- end edit user -->
-
-                                                        <form action='<?= $url . "/config/admin/users.php" ?>' method="post">
-                                                            <input type="hidden" name="user_id" value="<?= $value['id'] ?>">
-                                                            <button type="submit" class="btn btn-danger btn-sm" name="hapus_user"><i class="bi bi-trash2"></i></button>
-                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
