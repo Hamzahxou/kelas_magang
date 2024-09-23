@@ -1,3 +1,3 @@
 simple aja sih
 
-db https://drive.google.com/file/d/1fx5rhx9st-YC4lQFCnoR7ygxdwutuSP9/view?usp=drive_link
+db https://drive.google.com/drive/folders/1Lo0od7PWCL-aXOsWyIDWje56zu9wpFPW?usp=drive_link
