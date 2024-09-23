@@ -26,6 +26,19 @@ $row_peserta = $result_peserta->fetch_assoc();
                 <div class="col-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
+                            <center>
+                                <?php
+                                if ($row_peserta['avatar'] != null) {
+                                ?>
+                                    <img src="<?= $url . "/assets/static/images/faces/" . $row_peserta['avatar'] ?>" width="150px" alt="Profile" class="img-fluid rounded-circle mb-3">
+                                <?php
+                                } else {
+                                ?>
+                                    <img src="<?= $url . "/assets/static/images/faces/1.jpg" ?>" width="150px" alt="Profile" class="img-fluid rounded-circle mb-3">
+                                <?php
+                                }
+                                ?>
+                            </center>
                             <table class="table">
                                 <tr>
                                     <th>Username</th>
@@ -43,7 +56,7 @@ $row_peserta = $result_peserta->fetch_assoc();
                 </div>
                 <div class="col-12 col-lg-5">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" style="min-height: 300px;">
                             <div class="text-end">
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit"><i class="bi bi-pencil-square"></i> Edit</button>
                             </div>
@@ -59,11 +72,44 @@ $row_peserta = $result_peserta->fetch_assoc();
                                                 <i class="bi bi-x"></i>
                                             </button>
                                         </div>
-                                        <form action="<?= $url . "/config/siswa/profile.php" ?>" method="post">
+                                        <form action="<?= $url . "/config/siswa/profile.php" ?>" method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
                                             <input type="hidden" name="detail_user_id" value="<?= $row_peserta['id'] ?>">
                                             <div class="modal-body">
                                                 <div class="row">
+                                                    <div class="col-12">
+                                                        <center>
+                                                            <?php
+                                                            if ($row_peserta['avatar'] != null) {
+                                                            ?>
+                                                                <img src="<?= $url . "/assets/static/images/faces/" . $row_peserta['avatar'] ?>" width="150px" alt="Profile" class="img-fluid rounded-circle mb-3" id="preview">
+                                                            <?php
+                                                            } else {
+                                                            ?>
+                                                                <img src="<?= $url . "/assets/static/images/faces/1.jpg" ?>" width="150px" alt="Profile" class="img-fluid rounded-circle mb-3" id="preview">
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </center>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="foto_profile">Foto</label>
+                                                            <input type="hidden" name="foto_profile_db" value="<?= $row_peserta['avatar'] ?>">
+                                                            <input type="file" accept="image/*" id="foto_profile" class="form-control"
+                                                                placeholder="foto_profile" name="foto_profile" onchange="ImgPreview(this)">
+                                                        </div>
+                                                    </div>
+
+                                                    <script>
+                                                        function ImgPreview(e) {
+                                                            const blah = document.getElementById('preview')
+                                                            const [file] = e.files
+                                                            if (file) {
+                                                                blah.src = URL.createObjectURL(file)
+                                                            }
+                                                        }
+                                                    </script>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="username">Username</label>

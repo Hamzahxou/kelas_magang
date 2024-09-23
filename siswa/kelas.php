@@ -128,10 +128,12 @@ include_once('../config/redirect.php');
                                                                     <small>Guru / Pembimbing : <?php
                                                                                                 foreach ($data_guru as $guru) {
                                                                                                     if ($value['guru_id'] == $guru['id']) {
-                                                                                                        echo $guru['username'];
+                                                                                                ?>
+                                                                                <a href="<?= $url . "/siswa/detail-guru.php?user=" . $guru['id'] . "&role=guru" ?>"><?= $guru['username'] ?></a>
+                                                                        <?php
                                                                                                     }
                                                                                                 }
-                                                                                                ?></small>
+                                                                        ?></small>
                                                                     <hr>
                                                                     <p><b>Pesan</b>: <?= $value['pesan'] ?></p>
                                                                     <p><b>Deskripsi</b>: <?= $value['deskripsi'] ?></p>

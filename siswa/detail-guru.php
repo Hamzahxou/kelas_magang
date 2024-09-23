@@ -14,8 +14,8 @@ if (empty($hasil_user)) {
     header("location: " . $url . "/siswa/kelas.php");
 }
 
-if ($role == 'siswa') {
-    $sql_detail = "SELECT * FROM detail_peserta WHERE user_id = '$user_id'";
+if ($role == 'guru') {
+    $sql_detail = "SELECT * FROM detail_guru WHERE user_id = '$user_id'";
 } else {
     header("location: " . $url . "/siswa/kelas.php");
 }
@@ -76,9 +76,9 @@ $hasil_detail = $result_detail->fetch_assoc();
                         <div class="card-body">
                             <table class="table">
                                 <tr>
-                                    <th>Nisn</th>
+                                    <th>Nip</th>
                                     <th>:</th>
-                                    <th><?= $hasil_detail['nisn'] ?? '-' ?></th>
+                                    <th><?= $hasil_detail['nip'] ?? '-' ?></th>
                                 </tr>
                                 <tr>
                                     <th>No Telp</th>
@@ -108,34 +108,64 @@ $hasil_detail = $result_detail->fetch_assoc();
                                         <th>Detail</th>
                                     </tr>
                                 </thead>
-                                <?php
-                                $user_id = $_GET['user'];
 
-                                $cari_guru = "SELECT id,username FROM users WHERE role = 'guru'";
-                                $result_guru = $conn->query($cari_guru);
-                                $data_guru = [];
-                                foreach ($result_guru as $guru) {
-                                    $data_guru[] = $guru;
-                                }
-
-                                $sql_kelas = "SELECT * FROM peserta
-                                INNER JOIN kelas ON peserta.kelas_id = kelas.id
-                                INNER JOIN jadwal ON kelas.id = jadwal.kelas_id
-                                INNER JOIN users ON peserta.user_id = users.id
-                                WHERE peserta.user_id = '$user_id'
-                                ";
-                                $result_kelas = $conn->query($sql_kelas);
-                                $data_kelas = [];
-                                foreach ($result_kelas as $kelas) {
-                                    $data_kelas[] = $kelas;
-                                }
-                                ?>
                                 <tbody>
                                     <?php
-                                    foreach ($data_kelas as $index => $value) {
+
+                                    $peserta = "SELECT id,username FROM users WHERE role = 'siswa'";
+                                    $data_peserta = $conn->query($peserta);
+
+                                    $sql = "SELECT * FROM kelas
+                                        LEFT JOIN jadwal ON kelas.id = jadwal.kelas_id
+                                        JOIN users ON kelas.guru_id = users.id
+                                        WHERE guru_id = '$user_id'
+                                        ";
+
+                                    $result = $conn->query($sql);
+
+                                    $sql_peserta = "SELECT user_id,kelas_id,username FROM peserta 
+                                        INNER JOIN users ON peserta.user_id = users.id
+                                        ";
+                                    $query_peserta = $conn->query($sql_peserta);
+                                    $result_peserta = [];
+                                    foreach ($query_peserta as $peserta) {
+                                        $result_peserta[] = $peserta;
+                                    }
+
+                                    $data = [];
+                                    foreach ($result as $i => $baris) {
+                                        $kelas_id = $baris['kelas_id'];
+                                        if (!isset($data[$kelas_id])) {
+                                            $data[$kelas_id] = [
+                                                'id' => $i,
+                                                'waktu_mulai' => $baris['waktu_mulai'],
+                                                'waktu_selesai' => $baris['waktu_selesai'],
+                                                'pesan' => $baris['pesan'],
+                                                'kelas_id' => $baris['kelas_id'],
+                                                'username' => $baris['username'],
+                                                'nama_kelas' => $baris['nama_kelas'],
+                                                'deskripsi' => $baris['deskripsi'],
+                                                'tanggal_mulai' => $baris['tanggal_mulai'],
+                                                'tanggal_berakhir' => $baris['tanggal_berakhir'],
+                                                'guru_id' => $baris['guru_id'],
+                                                'peserta' => []
+                                            ];
+                                        }
+
+                                        // Tambahkan peserta ke dalam array peserta jadwal tersebut
+                                        foreach ($result_peserta as $peserta) {
+                                            if ($baris['kelas_id'] == $peserta['kelas_id']) {
+                                                $data[$kelas_id]['peserta'][] = [
+                                                    'username' => $peserta['username'],
+                                                    'user_id' => $peserta['user_id'],
+                                                ];
+                                            }
+                                        }
+                                    }
+                                    foreach ($data as $value) {
                                     ?>
                                         <tr>
-                                            <td><?= $index + 1 ?></td>
+                                            <td><?= $value['id'] + 1 ?></td>
                                             <td><?= $value['nama_kelas'] ?></td>
                                             <td><?= $value['tanggal_mulai'] ?> - <?= $value['tanggal_berakhir'] ?></td>
                                             <td><?= $value['waktu_mulai'] ?> - <?= $value['waktu_selesai'] ?></td>
@@ -156,8 +186,10 @@ $hasil_detail = $result_detail->fetch_assoc();
                                                 </div>
                                             </td>
                                             <td>
-                                                <button class="btn btn-light-primary btn-sm text-light" data-bs-toggle="modal"
-                                                    data-bs-target="#detail_<?= $value['kelas_id'] ?>"><i class="bi bi-eye"></i></button>
+                                                <div class="d-flex gap-2">
+                                                    <button class="btn btn-primary btn-sm text-light" data-bs-toggle="modal"
+                                                        data-bs-target="#detail_<?= $value['kelas_id'] ?>"><i class="bi bi-eye"></i></button>
+                                                </div>
                                                 <!-- start detail kelas -->
                                                 <div class="modal fade" id="detail_<?= $value['kelas_id'] ?>" tabindex="-1" role="dialog"
                                                     aria-labelledby="detail_<?= $value['kelas_id'] ?>Title" aria-hidden="true">
@@ -171,16 +203,9 @@ $hasil_detail = $result_detail->fetch_assoc();
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <small>Guru / Pembimbing : <?php
-                                                                                            foreach ($data_guru as $guru) {
-                                                                                                if ($value['guru_id'] == $guru['id']) {
-                                                                                                    echo $guru['username'];
-                                                                                                }
-                                                                                            }
-                                                                                            ?></small>
-                                                                <hr>
                                                                 <p><b>Pesan</b>: <?= $value['pesan'] ?></p>
                                                                 <p><b>Deskripsi</b>: <?= $value['deskripsi'] ?></p>
+                                                                <br>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-light-secondary"
@@ -192,7 +217,6 @@ $hasil_detail = $result_detail->fetch_assoc();
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- end detail kelas -->
                                             </td>
                                         </tr>
                                     <?php

@@ -13,6 +13,23 @@
                                 <h6 class="mb-0 text-gray-600"><?= $user['username'] ?></h6>
                                 <p class="mb-0 text-sm text-gray-600"><?= $user['role'] ?></p>
                             </div>
+                            <div class="user-img d-flex align-items-center">
+                                <div class="avatar">
+                                    <?php
+                                    if ($user['role'] != 'admin') {
+                                        if ($detail_user_avatar['avatar'] != null) {
+                                    ?>
+                                            <img src="../assets/static/images/faces/<?= $detail_user_avatar['avatar'] ?>" alt="Profile">
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <img src="../assets/static/images/faces/1.jpg" alt="Profile">
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">

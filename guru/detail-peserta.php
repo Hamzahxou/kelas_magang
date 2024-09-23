@@ -43,6 +43,19 @@ $hasil_detail = $result_detail->fetch_assoc();
                 <div class="col-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
+                            <center>
+                                <?php
+                                if ($hasil_detail['avatar'] != null) {
+                                ?>
+                                    <img src="<?= $url . "/assets/static/images/faces/" . $hasil_detail['avatar'] ?>" width="150px" alt="Profile" class="img-fluid rounded-circle mb-3">
+                                <?php
+                                } else {
+                                ?>
+                                    <img src="<?= $url . "/assets/static/images/faces/1.jpg" ?>" width="150px" alt="Profile" class="img-fluid rounded-circle mb-3">
+                                <?php
+                                }
+                                ?>
+                            </center>
                             <table class="table">
                                 <tr>
                                     <th>Username</th>

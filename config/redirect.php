@@ -18,6 +18,14 @@ if (isset($_SESSION['user'])) {
             WHERE user_id = '$user[id]'";
             $query_peserta = $conn->query($sql_peserta);
             $peserta_magang = $query_peserta->fetch_assoc();
+
+            $detail_siswa = "SELECT * FROM detail_peserta WHERE user_id = '$user[id]'";
+            $detail_siswa = $conn->query($detail_siswa);
+            $detail_user_avatar = $detail_siswa->fetch_assoc();
+        } else if ($user['role'] == "guru") {
+            $detail_guru = "SELECT * FROM detail_guru WHERE user_id = '$user[id]'";
+            $detail_guru = $conn->query($detail_guru);
+            $detail_user_avatar = $detail_guru->fetch_assoc();
         }
     }
 } else {
