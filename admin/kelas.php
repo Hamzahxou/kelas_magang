@@ -278,7 +278,8 @@ include_once('../config/redirect.php');
                                                                         <?php
                                                                         foreach ($value['peserta'] as $index_peserta => $peserta) {
                                                                         ?>
-                                                                            <a href="<?= $url . "/admin/profile.php?user=" . $peserta['user_id'] . "&role=siswa" ?>"><?= $peserta['username'] ?></a>
+                                                                            <li> <a href="<?= $url . "/admin/profile.php?user=" . $peserta['user_id'] . "&role=siswa" ?>"><?= $peserta['username'] ?></a>
+                                                                            </li>
                                                                         <?php } ?>
                                                                     </ul>
                                                                 </div>

@@ -1,6 +1,8 @@
 <?php
 include_once('../config/database.php');
 $parse_url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// var_dump(parse_url($_SERVER['HTTP_REFERER'])['path'] == $_SERVER['REQUEST_URI']);
+// die();
 $parse_url = explode("/", $parse_url);
 $get_parse_url = $parse_url[2];
 

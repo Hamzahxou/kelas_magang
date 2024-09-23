@@ -138,16 +138,13 @@ include_once('../config/redirect.php');
                                                                     <b>teman: </b>
                                                                     <ul>
                                                                         <?php
-                                                                        if (count($data_teman) > 0) {
-                                                                            foreach ($data_teman as  $teman) {
-                                                                                if ($value['kelas_id'] == $teman['kelas_id']) {
+                                                                        foreach ($data_teman as  $teman) {
+                                                                            if ($value['kelas_id'] == $teman['kelas_id']) {
                                                                         ?>
-                                                                                    <a href="<?= $url . "/siswa/detail-teman.php?user=" . $teman['user_id'] . "&role=siswa" ?>"><?= $teman['username'] ?></a>
+                                                                                <li> <a href="<?= $url . "/siswa/detail-teman.php?user=" . $teman['user_id'] . "&role=siswa" ?>"><?= $teman['username'] ?></a>
+                                                                                </li>
                                                                         <?php
-                                                                                }
                                                                             }
-                                                                        } else {
-                                                                            echo "<li>Tidak ada teman</li>";
                                                                         }
                                                                         ?>
                                                                 </div>
