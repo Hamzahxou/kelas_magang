@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
 
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-lg-5 col-12 ">
-                <div class="card  alert-light-success">
+                <div class="card  alert-light-primary shadow">
                     <div class="card-body mt-0 pt-0">
                         <div id="auth-left">
                             <h1 class="auth-title text-center">Log in.</h1>
@@ -64,12 +64,12 @@ if (isset($_POST['login'])) {
                                     <div class="form-control-icon">
                                         <i class="bi bi-shield-lock"></i>
                                     </div>
-                                    <div class="position-absolute top-0 end-0 fs-2 me-2 mt-1" id="show-password"
+                                    <div class="position-absolute top-0 end-0 fs-2 me-2 mt-1 text-primary" id="show-password"
                                         onclick="showPassword(this)" style="cursor: pointer">
                                         <i class="bi bi-unlock-fill"></i>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-2" type="submit" name="login">Log in</button>
+                                <button class="btn btn-primary btn-block btn-lg mt-2" type="submit" name="login">Log in</button>
                             </form>
                         </div>
                     </div>

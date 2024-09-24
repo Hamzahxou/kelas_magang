@@ -78,6 +78,33 @@ include_once('../config/redirect.php');
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                        <div id="role_guru" class="d-none">
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label for="nip">Nip</label>
+                                                                    <input type="number" id="nip" class="form-control"
+                                                                        placeholder="nip" name="nip">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="role_siswa" class="d-none">
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label for="nisn">Nisn</label>
+                                                                    <input type="text" id="nisn" class="form-control"
+                                                                        placeholder="nisn" name="nisn">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="role_not_admin" class="d-none">
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label for="noTelp">No Telp</label>
+                                                                    <input type="number" id="noTelp" class="form-control"
+                                                                        placeholder="noTelp" name="noTelp">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <label for="email">Email</label>
@@ -271,7 +298,24 @@ include_once('../config/redirect.php');
         </div>
     </div>
     <?php include_once("../layout/footer-link.php") ?>
-
+    <script>
+        function roleAkses(el) {
+            const role = el.value;
+            if (role == "admin") {
+                document.getElementById("role_guru").classList.add("d-none");
+                document.getElementById("role_siswa").classList.add("d-none");
+                document.getElementById("role_not_admin").classList.add("d-none");
+            } else if (role == "guru") {
+                document.getElementById("role_guru").classList.remove("d-none");
+                document.getElementById("role_siswa").classList.add("d-none");
+                document.getElementById("role_not_admin").classList.remove("d-none");
+            } else if (role == "siswa") {
+                document.getElementById("role_guru").classList.add("d-none");
+                document.getElementById("role_siswa").classList.remove("d-none");
+                document.getElementById("role_not_admin").classList.remove("d-none");
+            }
+        }
+    </script>
 </body>
 
 </html>

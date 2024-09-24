@@ -309,6 +309,8 @@ include_once('../config/redirect.php');
                                                                     </button>
                                                                 </div>
                                                                 <form action='<?= $url . "/config/admin/kelas.php" ?>' method="post">
+                                                                    <input type="hidden" name="nama_kelas_db" value="<?= $value['nama_kelas'] ?>">
+                                                                    <input type="hidden" name="guru_id" value="<?= $value['guru_id'] ?>">
                                                                     <input type="hidden" name="kelas_id" value="<?= $value['kelas_id'] ?>">
                                                                     <div class="modal-body">
                                                                         <div class="row">

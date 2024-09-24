@@ -10,6 +10,28 @@ if (isset($_POST['edit'])) {
     $foto_profile_db = $_POST['foto_profile_db'];
     $foto_profile = $_FILES['foto_profile']['name'];
     $avatar = $foto_profile_db;
+
+
+    $sql_cek_detail = "SELECT * FROM detail_peserta WHERE( nisn = '$nisn' OR no_telp = '$no_telp') AND id != '$detail_user_id'";
+    $cek_detail = mysqli_query($conn, $sql_cek_detail);
+    $cek_detail = $cek_detail->fetch_assoc();
+    if ($cek_detail['nisn'] == $nisn) {
+        $_SESSION['flash_alert'] = [
+            'type' => 'danger',
+            'pesan' => 'Nisn sudah ada'
+        ];
+        header("location: " . $url . "/siswa/profile.php");
+        die();
+    } elseif ($cek_detail['no_telp'] == $no_telp) {
+        $_SESSION['flash_alert'] = [
+            'type' => 'danger',
+            'pesan' => 'No Telp sudah ada'
+        ];
+        header("location: " . $url . "/siswa/profile.php");
+        die();
+    }
+
+
     if ($foto_profile) {
         $extension = explode('.', $foto_profile);
         $extension = end($extension);
