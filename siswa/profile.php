@@ -120,7 +120,7 @@ $row_peserta = $result_peserta->fetch_assoc();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="nisn">Nisn</label>
-                                                            <input type="text" id="nisn" class="form-control"
+                                                            <input type="number" id="nisn" class="form-control"
                                                                 placeholder="nisn" name="nisn" value="<?= $row_peserta['nisn'] ?>">
                                                         </div>
                                                     </div>

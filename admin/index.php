@@ -51,9 +51,9 @@ include_once('../config/redirect.php');
                                     <div class="card-body px-4 py-4-5">
                                         <div class="row">
                                             <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start align-items-center ">
-                                                <div class="bg-warning p-2 px-3 fs-3 rounded">
+                                                <a class="d-block bg-warning p-2 px-3 fs-3 rounded" href="<?= $url . "/admin/users.php?cari=&role=siswa" ?>">
                                                     <i class="bi bi-person-fill"></i>
-                                                </div>
+                                                </a>
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Peserta</h6>
@@ -75,9 +75,9 @@ include_once('../config/redirect.php');
                                     <div class="card-body px-4 py-4-5">
                                         <div class="row">
                                             <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start align-items-center ">
-                                                <div class="bg-success p-2 px-3 fs-3 rounded">
+                                                <a class="d-block bg-success p-2 px-3 fs-3 rounded" href="<?= $url . "/admin/users.php?cari=&role=guru" ?>">
                                                     <i class="bi bi-person-workspace"></i>
-                                                </div>
+                                                </a>
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Guru</h6>
@@ -99,9 +99,9 @@ include_once('../config/redirect.php');
                                     <div class="card-body px-4 py-4-5">
                                         <div class="row">
                                             <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-center align-items-center">
-                                                <div class="bg-primary p-2 px-3 fs-3 rounded">
+                                                <a class="d-block bg-primary p-2 px-3 fs-3 rounded" href="<?= $url . "/admin/kelas.php" ?>">
                                                     <i class="bi bi-person-rolodex"></i>
-                                                </div>
+                                                </a>
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Kelas</h6>

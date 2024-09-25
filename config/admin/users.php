@@ -101,11 +101,22 @@ if (isset($_POST['edit_user'])) {
     if (empty($_POST['password'])) {
         $password = $_POST['password_db'];
     }
-    $sql = "UPDATE users SET username = '$username', email = '$email', password = '$password' WHERE id = '$user_id'";
-    mysqli_query($conn, $sql);
-    $_SESSION['flash_alert'] = [
-        'type' => 'success',
-        'pesan' => 'User berhasil diubah'
-    ];
+
+    $cek_user = "SELECT * FROM users WHERE email = '$email' AND id != '$user_id'";
+    $cek_user = mysqli_query($conn, $cek_user);
+    if (mysqli_num_rows($cek_user) > 0) {
+        $_SESSION['flash_alert'] = [
+            'type' => 'danger',
+            'pesan' => 'Email sudah ada'
+        ];
+    } else {
+        $sql = "UPDATE users SET username = '$username', email = '$email', password = '$password' WHERE id = '$user_id'";
+        mysqli_query($conn, $sql);
+        $_SESSION['flash_alert'] = [
+            'type' => 'success',
+            'pesan' => 'User berhasil diubah'
+        ];
+    }
+
     header("location: " . $url . "/admin/users.php");
 }

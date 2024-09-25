@@ -163,130 +163,140 @@ include_once('../config/redirect.php');
                                             }
                                         }
                                         $result = mysqli_query($conn, $sql);
-                                        foreach ($result as $key => $value) {
+                                        if ($result->fetch_assoc()) {
+                                            foreach ($result as $key => $value) {
                                         ?>
-                                            <tr>
-                                                <td><?= $key + 1 ?></td>
-                                                <td>
-                                                    <?php
-                                                    if ($value['role'] != 'admin') {
-                                                    ?>
-                                                        <a href="<?= $url . "/admin/profile.php?user=" . $value['id'] . "&role=" . $value['role'] ?>"><?= $value['username'] ?></a>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <?= $value['username'] ?>
-                                                    <?php } ?>
-                                                </td>
-                                                <td><?= $value['role'] ?></td>
-                                                <td>
-                                                    <div class="d-flex gap-2 align-items-center">
-                                                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#editUser_<?= $value['id']; ?>"><i class="bi bi-pencil-square"></i></button>
-                                                        <button class="btn btn-danger btn-sm text-light" data-bs-toggle="modal"
-                                                            data-bs-target="#hapus_user_<?= $value['id'] ?>"><i class="bi bi-trash2"></i></button>
+                                                <tr>
+                                                    <td><?= $key + 1 ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($value['role'] != 'admin') {
+                                                        ?>
+                                                            <a href="<?= $url . "/admin/profile.php?user=" . $value['id'] . "&role=" . $value['role'] ?>"><?= $value['username'] ?></a>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <?= $value['username'] ?>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td><?= $value['role'] ?></td>
+                                                    <td>
+                                                        <div class="d-flex gap-2 align-items-center">
+                                                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                                                data-bs-target="#editUser_<?= $value['id']; ?>"><i class="bi bi-pencil-square"></i></button>
+                                                            <button class="btn btn-danger btn-sm text-light" data-bs-toggle="modal"
+                                                                data-bs-target="#hapus_user_<?= $value['id'] ?>"><i class="bi bi-trash2"></i></button>
 
 
 
-                                                        <!-- start hapus kelas -->
-                                                        <div class="modal fade" id="hapus_user_<?= $value['id'] ?>" tabindex="-1" role="dialog"
-                                                            aria-labelledby="hapus_user_<?= $value['id'] ?>Title" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="hapus_user_<?= $value['id'] ?>Title">Hapus Kelas</h5>
-                                                                        <button type="button" class="btn" data-bs-dismiss="modal"
-                                                                            aria-label="Close">
-                                                                            <i class="bi bi-x"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <h6>Yakin ingin menghapus user <b><?= $value['username'] ?></b> dengan role <b><?= $value['role'] ?></b>?</h6>
-
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-light-secondary"
-                                                                            data-bs-dismiss="modal">
-                                                                            <i class="bi bi-x d-block d-sm-none"></i>
-                                                                            <span class="d-none d-sm-block">tutup</span>
-                                                                        </button>
-                                                                        <form action='<?= $url . "/config/admin/users.php" ?>' method="post">
-                                                                            <input type="hidden" name="user_id" value="<?= $value['id'] ?>">
-                                                                            <button type="submit" name="hapus_user" class="btn btn-light-danger">
-                                                                                <i class="bi bi-check d-block d-sm-none"></i>
-                                                                                <span class="d-none d-sm-block">lanjut</span>
+                                                            <!-- start hapus kelas -->
+                                                            <div class="modal fade" id="hapus_user_<?= $value['id'] ?>" tabindex="-1" role="dialog"
+                                                                aria-labelledby="hapus_user_<?= $value['id'] ?>Title" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="hapus_user_<?= $value['id'] ?>Title">Hapus Kelas</h5>
+                                                                            <button type="button" class="btn" data-bs-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                                <i class="bi bi-x"></i>
                                                                             </button>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end hapus kelas -->
-
-                                                        <!-- start edit user -->
-                                                        <div class="modal fade" id="editUser_<?= $value['id']; ?>" tabindex="-1" role="dialog"
-                                                            aria-labelledby="editUser_<?= $value['id']; ?>Title" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="editUser_<?= $value['id']; ?>Title">Edit user</h5>
-                                                                        <button type="button" class="btn" data-bs-dismiss="modal"
-                                                                            aria-label="Close">
-                                                                            <i class="bi bi-x"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                    <form action='<?= $url . "/config/admin/users.php" ?>' class="form" method="post">
+                                                                        </div>
                                                                         <div class="modal-body">
-                                                                            <input type="hidden" name="user_id" value="<?= $value['id'] ?>">
-                                                                            <input type="hidden" name="password_db" value="<?= $value['password'] ?>">
+                                                                            <h6>Yakin ingin menghapus user <b><?= $value['username'] ?></b> dengan role <b><?= $value['role'] ?></b>?</h6>
 
-                                                                            <div class="row">
-                                                                                <div class="col-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="nama">Nama</label>
-                                                                                        <input type="text" id="nama" class="form-control"
-                                                                                            placeholder="username" name="username" value="<?= $value['username'] ?>">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <input type="hidden" name="role" value="<?= $value['role'] ?>">
-
-                                                                                <div class="col-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="email">Email</label>
-                                                                                        <input type="text" id="email" class="form-control"
-                                                                                            placeholder="email" name="email" value="<?= $value['email'] ?>">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-12">
-                                                                                    <div class="form-group">
-                                                                                        <label for="password">password</label>
-                                                                                        <input type="password" id="password" class="form-control"
-                                                                                            placeholder="password" name="password">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-light-secondary"
                                                                                 data-bs-dismiss="modal">
                                                                                 <i class="bi bi-x d-block d-sm-none"></i>
-                                                                                <span class="d-none d-sm-block">batal</span>
+                                                                                <span class="d-none d-sm-block">tutup</span>
                                                                             </button>
-
-                                                                            <button type="submit" name="edit_user" class="btn btn-primary ms-1">
-                                                                                <i class="bi bi-check d-block d-sm-none"></i>
-                                                                                <span class="d-none d-sm-block">lanjut</span>
-                                                                            </button>
+                                                                            <form action='<?= $url . "/config/admin/users.php" ?>' method="post">
+                                                                                <input type="hidden" name="user_id" value="<?= $value['id'] ?>">
+                                                                                <button type="submit" name="hapus_user" class="btn btn-light-danger">
+                                                                                    <i class="bi bi-check d-block d-sm-none"></i>
+                                                                                    <span class="d-none d-sm-block">lanjut</span>
+                                                                                </button>
+                                                                            </form>
                                                                         </div>
-                                                                    </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                            <!-- end hapus kelas -->
+
+                                                            <!-- start edit user -->
+                                                            <div class="modal fade" id="editUser_<?= $value['id']; ?>" tabindex="-1" role="dialog"
+                                                                aria-labelledby="editUser_<?= $value['id']; ?>Title" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="editUser_<?= $value['id']; ?>Title">Edit user</h5>
+                                                                            <button type="button" class="btn" data-bs-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                                <i class="bi bi-x"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form action='<?= $url . "/config/admin/users.php" ?>' class="form" method="post">
+                                                                            <div class="modal-body">
+                                                                                <input type="hidden" name="user_id" value="<?= $value['id'] ?>">
+                                                                                <input type="hidden" name="password_db" value="<?= $value['password'] ?>">
+
+                                                                                <div class="row">
+                                                                                    <div class="col-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="nama">Nama</label>
+                                                                                            <input type="text" id="nama" class="form-control"
+                                                                                                placeholder="username" name="username" value="<?= $value['username'] ?>">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <input type="hidden" name="role" value="<?= $value['role'] ?>">
+
+                                                                                    <div class="col-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="email">Email</label>
+                                                                                            <input type="text" id="email" class="form-control"
+                                                                                                placeholder="email" name="email" value="<?= $value['email'] ?>">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="password">password</label>
+                                                                                            <input type="password" id="password" class="form-control"
+                                                                                                placeholder="password" name="password">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-light-secondary"
+                                                                                    data-bs-dismiss="modal">
+                                                                                    <i class="bi bi-x d-block d-sm-none"></i>
+                                                                                    <span class="d-none d-sm-block">batal</span>
+                                                                                </button>
+
+                                                                                <button type="submit" name="edit_user" class="btn btn-primary ms-1">
+                                                                                    <i class="bi bi-check d-block d-sm-none"></i>
+                                                                                    <span class="d-none d-sm-block">lanjut</span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- end edit user -->
                                                         </div>
-                                                        <!-- end edit user -->
-                                                    </div>
-                                                </td>
+                                                    </td>
+                                                </tr>
+                                            <?php }
+                                        } else { ?>
+                                            <tr>
+                                                <th colspan="4" class="text-center">Tidak ada user dengan nama <i><?= $_GET['cari'] ?></i> <?=
+                                                                                                                                            isset($_GET['role']) ? "dan dengan role <i>" . $_GET['role'] . "</i>" : '';
+                                                                                                                                            ?></th>
                                             </tr>
-                                        <?php } ?>
+                                        <?php
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

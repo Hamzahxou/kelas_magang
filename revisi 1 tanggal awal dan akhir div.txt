@@ -1,0 +1,7 @@
+----- revisi -----
+tanggal awal dan akhir divalidasi begitu juga waktu mulai dan akhir 	
+uniq tampilan edit user
+ - no_telp 
+ - nis/nip 		
+uniq edit /tambah kelas
+ - nama kelas 

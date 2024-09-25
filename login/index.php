@@ -17,7 +17,11 @@ if (isset($_POST['login'])) {
         $_SESSION['user'] = $user;
         header("location: " . $url . "/" . $user['role']);
     } else {
-        header("location: " . $url . "/login");
+        $_SESSION['flash_alert'] = [
+            'type' => 'warning',
+            'pesan' => 'email atau password tidak valid'
+        ];
+        // header("location: " . $url . "/login");
     }
 }
 
@@ -51,6 +55,7 @@ if (isset($_POST['login'])) {
                     <div class="card-body mt-0 pt-0">
                         <div id="auth-left">
                             <h1 class="auth-title text-center">Log in.</h1>
+                            <?php include_once('../layout/flash_alert.php') ?>
 
                             <form action="" method="post">
                                 <div class="form-group position-relative has-icon-left mb-4">

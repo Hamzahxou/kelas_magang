@@ -59,10 +59,16 @@ if (isset($_POST['edit_kelas'])) {
             'type' => 'danger',
             'pesan' => 'kelas sudah ada'
         ];
-    } elseif ($tanggal_berakhir < $tanggal_mulai || $waktu_selesai < $waktu_mulai) {
+        echo "sudah ada";
+    } elseif ($tanggal_berakhir <= $tanggal_mulai) {
         $_SESSION['flash_alert'] = [
             'type' => 'danger',
-            'pesan' => 'waktu atau tanggal tidak valid'
+            'pesan' => 'tanggal tidak valid'
+        ];
+    } elseif ($waktu_selesai <= $waktu_mulai) {
+        $_SESSION['flash_alert'] = [
+            'type' => 'danger',
+            'pesan' => 'waktu tidak valid'
         ];
     } else {
         $tanggal_mulai = $tanggal_mulai->format('Y-m-d');
@@ -112,10 +118,15 @@ if (isset($_POST['tambah_kelas'])) {
                 'type' => 'danger',
                 'pesan' => 'kelas sudah ada'
             ];
-        } elseif ($tanggal_berakhir < $tanggal_mulai || $waktu_selesai < $waktu_mulai) {
+        } elseif ($tanggal_berakhir <= $tanggal_mulai) {
             $_SESSION['flash_alert'] = [
                 'type' => 'danger',
-                'pesan' => 'waktu atau tanggal tidak valid'
+                'pesan' => 'tanggal tidak valid'
+            ];
+        } elseif ($waktu_selesai <= $waktu_mulai) {
+            $_SESSION['flash_alert'] = [
+                'type' => 'danger',
+                'pesan' => 'waktu tidak valid'
             ];
         } else {
             $tanggal_mulai = $tanggal_mulai->format('Y-m-d');
